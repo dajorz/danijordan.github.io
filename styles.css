@@ -1,3 +1,24 @@
+/**
+ * Daniel Jordan - Professional CV Stylesheet
+ * 
+ * Responsive Design Strategy:
+ * - Desktop (1200px+): Full 2-column layout with sidebar (320px)
+ * - Tablet Large (1024px-1200px): Reduced sidebar (280px)
+ * - Tablet Medium (768px-1024px): Compact sidebar (260px)
+ * - Mobile (< 768px): Single column, sidebar stacked on top
+ * - Print: A4 optimized with 2-column layout preserved
+ * 
+ * Touch-friendly with increased tap targets on mobile devices
+ */
+
+/* Root Settings & Reset */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +32,11 @@ body {
     background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     min-height: 100vh;
     padding: 20px;
+    /* Performance optimizations */
+    text-rendering: optimizeLegibility;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .container {
@@ -69,6 +95,8 @@ body {
     border-radius: 50%;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Ensure perfect circle */
+    flex-shrink: 0;
 }
 
 .toggle-switch.active .toggle-slider {
@@ -189,6 +217,9 @@ body {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s ease;
+    /* Prevent long URLs/emails from breaking layout */
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .contact-item a:hover {
@@ -267,11 +298,9 @@ body {
     color: #1a202c;
     margin-bottom: 25px;
     padding-bottom: 12px;
-    border-bottom: 3px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-        linear-gradient(90deg, #3b82f6, #2563eb) border-box;
     border-bottom: 3px solid;
     border-image: linear-gradient(90deg, #3b82f6, #2563eb) 1;
+    border-image-slice: 0 0 1 0;
     position: relative;
 }
 
@@ -407,6 +436,9 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
+    /* Prevent long URLs from breaking layout */
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .item-description a:hover {
@@ -460,6 +492,545 @@ body.lang-english .lang-en {
 /* Elemento solo visible en impresión */
 .print-only-separator {
     display: none;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - Mobile & Tablet
+   ============================================ */
+
+/* Tablet - Large (max-width: 1200px) */
+@media screen and (max-width: 1200px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        grid-template-columns: 280px 1fr;
+        max-width: 100%;
+    }
+
+    .sidebar {
+        padding: 40px 25px;
+    }
+
+    .main-content {
+        padding: 40px 35px;
+    }
+
+    .language-toggle {
+        top: 20px;
+        right: 20px;
+        padding: 15px;
+    }
+}
+
+/* Tablet - Medium (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .container {
+        grid-template-columns: 260px 1fr;
+    }
+
+    .sidebar {
+        padding: 35px 20px;
+    }
+
+    .profile-photo {
+        width: 140px;
+        height: 140px;
+        font-size: 46px;
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .main-content {
+        padding: 35px 30px;
+    }
+
+    .section h2 {
+        font-size: 20px;
+    }
+
+    .item-title {
+        font-size: 17px;
+    }
+
+    .language-toggle {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .toggle-switch {
+        width: 60px;
+        height: 30px;
+    }
+
+    .toggle-slider {
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .toggle-switch.active .toggle-slider {
+        transform: translateX(30px);
+    }
+
+    .lang-label {
+        font-size: 14px;
+    }
+}
+
+/* Tablet - Small / Mobile - Large (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        background: white;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: auto;
+    }
+
+    .sidebar {
+        padding: 30px 20px;
+        border-radius: 0;
+    }
+
+    .sidebar::before {
+        display: none;
+    }
+
+    /* Add bottom border instead of side border */
+    .sidebar::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #2563eb);
+    }
+
+    .profile-section {
+        margin-bottom: 35px;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+        font-size: 42px;
+    }
+
+    .name {
+        font-size: 22px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .sidebar-section {
+        margin-bottom: 30px;
+    }
+
+    .sidebar-section h3 {
+        font-size: 17px;
+    }
+
+    .contact-item {
+        font-size: 13px;
+    }
+
+    .skills-category h4 {
+        font-size: 14px;
+    }
+
+    .skills-list {
+        font-size: 13px;
+    }
+
+    .language-item {
+        font-size: 13px;
+    }
+
+    .main-content {
+        padding: 30px 20px;
+    }
+
+    .section {
+        margin-bottom: 35px;
+    }
+
+    .section h2 {
+        font-size: 19px;
+        margin-bottom: 20px;
+    }
+
+    .summary {
+        padding: 20px;
+        font-size: 15px;
+    }
+
+    .experience-item,
+    .education-item,
+    .project-item {
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-date {
+        margin-left: 0;
+        margin-top: 8px;
+        white-space: normal;
+    }
+
+    .item-title {
+        font-size: 16px;
+    }
+
+    .item-company {
+        font-size: 15px;
+    }
+
+    .item-description {
+        font-size: 14px;
+    }
+
+    .tech-tag {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+
+    .language-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 10px 12px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+
+    .toggle-switch {
+        width: 55px;
+        height: 28px;
+    }
+
+    .toggle-slider {
+        top: 2px;
+        left: 2px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .toggle-switch.active .toggle-slider {
+        transform: translateX(27px);
+    }
+
+    .lang-label {
+        font-size: 13px;
+    }
+}
+
+/* Mobile - Medium (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        border-radius: 0;
+    }
+
+    .sidebar {
+        padding: 25px 15px;
+    }
+
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+
+    .sidebar-section {
+        margin-bottom: 25px;
+    }
+
+    .sidebar-section h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .contact-item {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .contact-icon {
+        width: 20px;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+
+    .skills-category {
+        margin-bottom: 20px;
+    }
+
+    .skills-category h4 {
+        font-size: 13px;
+    }
+
+    .skills-list {
+        font-size: 12px;
+    }
+
+    .language-item {
+        font-size: 12px;
+    }
+
+    .language-level {
+        font-size: 11px;
+    }
+
+    .main-content {
+        padding: 25px 15px;
+    }
+
+    .section {
+        margin-bottom: 30px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+    }
+
+    .summary {
+        padding: 18px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .summary p {
+        margin-bottom: 12px;
+    }
+
+    .experience-item,
+    .education-item,
+    .project-item {
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    .item-title {
+        font-size: 15px;
+    }
+
+    .item-company {
+        font-size: 14px;
+    }
+
+    .item-date {
+        font-size: 13px;
+        padding: 3px 10px;
+        margin-top: 6px;
+    }
+
+    .item-description {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .item-description ul {
+        margin-left: 16px;
+    }
+
+    .tech-tags {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .tech-tag {
+        font-size: 10px;
+        padding: 3px 7px;
+    }
+
+    .language-toggle {
+        top: 8px;
+        right: 8px;
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .toggle-switch {
+        width: 50px;
+        height: 26px;
+    }
+
+    .toggle-slider {
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .toggle-switch.active .toggle-slider {
+        transform: translateX(24px);
+    }
+
+    .lang-label {
+        font-size: 12px;
+    }
+}
+
+/* Mobile - Small (max-width: 360px) */
+@media screen and (max-width: 360px) {
+    .sidebar {
+        padding: 20px 12px;
+    }
+
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+        font-size: 32px;
+    }
+
+    .name {
+        font-size: 18px;
+    }
+
+    .title {
+        font-size: 13px;
+    }
+
+    .main-content {
+        padding: 20px 12px;
+    }
+
+    .section h2 {
+        font-size: 17px;
+    }
+
+    .summary {
+        padding: 15px;
+        font-size: 13px;
+    }
+
+    .experience-item,
+    .education-item,
+    .project-item {
+        padding: 15px;
+    }
+
+    .item-title {
+        font-size: 14px;
+    }
+
+    .item-company {
+        font-size: 13px;
+    }
+
+    .item-description {
+        font-size: 12px;
+    }
+
+    .language-toggle {
+        padding: 6px 8px;
+        gap: 6px;
+    }
+
+    .lang-label {
+        font-size: 11px;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Disable hover effects on touch devices */
+    .summary:hover,
+    .experience-item:hover,
+    .education-item:hover,
+    .project-item:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tech-tag:hover {
+        transform: none;
+    }
+
+    /* Increase touch targets for better mobile UX */
+    .language-toggle {
+        min-height: 44px;
+        padding: 12px 15px;
+    }
+
+    /* Ensure toggle switch maintains its aspect ratio */
+    .toggle-switch {
+        flex-shrink: 0;
+    }
+
+    .contact-item a {
+        padding: 8px 0;
+        display: inline-block;
+    }
+
+    .item-description a {
+        padding: 4px 0;
+        display: inline-block;
+    }
+}
+
+/* Landscape mode optimization for tablets and small laptops */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    .container {
+        grid-template-columns: 240px 1fr;
+    }
+
+    .sidebar {
+        padding: 30px 18px;
+    }
+
+    .profile-section {
+        margin-bottom: 30px;
+    }
+
+    .profile-photo {
+        width: 110px;
+        height: 110px;
+        font-size: 38px;
+    }
+
+    .sidebar-section {
+        margin-bottom: 25px;
+    }
+
+    .main-content {
+        padding: 30px 25px;
+    }
 }
 
 /* Print Styles */
@@ -556,6 +1127,7 @@ body.lang-english .lang-en {
 
     .section h2 {
         border-image: linear-gradient(90deg, #3b82f6, #2563eb) 1 !important;
+        border-image-slice: 0 0 1 0 !important;
     }
 
     .summary {
