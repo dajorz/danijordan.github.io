@@ -44,6 +44,43 @@ function calculateYearsOfExperience() {
 }
 
 /**
+ * Handle language toggle visibility on scroll (mobile only)
+ * Hides the toggle when user scrolls down, shows when at top
+ */
+function handleLanguageToggleScroll() {
+    const languageToggle = document.querySelector('.language-toggle');
+    let lastScrollTop = 0;
+    const scrollThreshold = 10; // Pixels from top to consider "at top"
+    
+    window.addEventListener('scroll', function() {
+        // Only apply on mobile screens (< 768px)
+        if (window.innerWidth >= 768) {
+            languageToggle.classList.remove('hidden-scroll');
+            return;
+        }
+        
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop <= scrollThreshold) {
+            // At the top of the page - show toggle
+            languageToggle.classList.remove('hidden-scroll');
+        } else {
+            // Scrolled down - hide toggle
+            languageToggle.classList.add('hidden-scroll');
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Also check on window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+            languageToggle.classList.remove('hidden-scroll');
+        }
+    });
+}
+
+/**
  * Initialize CV functionality when DOM is loaded
  */
 document.addEventListener('DOMContentLoaded', function() {
@@ -57,8 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Calculate and display years of experience
     calculateYearsOfExperience();
     
+    // Initialize scroll-based language toggle visibility (mobile only)
+    handleLanguageToggleScroll();
+    
     // Console info for developers
     console.log('CV initialized successfully');
     console.log('Default language: English');
     console.log('Experience calculation: Active');
+    console.log('Scroll-based toggle visibility: Enabled for mobile');
 });
