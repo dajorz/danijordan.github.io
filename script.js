@@ -44,11 +44,12 @@ function calculateYearsOfExperience() {
 }
 
 /**
- * Handle language toggle visibility on scroll (mobile only)
- * Hides the toggle when user scrolls down, shows when at top
+ * Handle language toggle and PDF button visibility on scroll (mobile only)
+ * Hides both elements when user scrolls down, shows when at top
  */
 function handleLanguageToggleScroll() {
     const languageToggle = document.querySelector('.language-toggle');
+    const pdfButton = document.querySelector('.pdf-download-btn');
     let lastScrollTop = 0;
     const scrollThreshold = 10; // Pixels from top to consider "at top"
     
@@ -56,17 +57,20 @@ function handleLanguageToggleScroll() {
         // Only apply on mobile screens (< 768px)
         if (window.innerWidth >= 768) {
             languageToggle.classList.remove('hidden-scroll');
+            if (pdfButton) pdfButton.classList.remove('hidden-scroll');
             return;
         }
         
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop <= scrollThreshold) {
-            // At the top of the page - show toggle
+            // At the top of the page - show both elements
             languageToggle.classList.remove('hidden-scroll');
+            if (pdfButton) pdfButton.classList.remove('hidden-scroll');
         } else {
-            // Scrolled down - hide toggle
+            // Scrolled down - hide both elements
             languageToggle.classList.add('hidden-scroll');
+            if (pdfButton) pdfButton.classList.add('hidden-scroll');
         }
         
         lastScrollTop = scrollTop;
@@ -76,6 +80,7 @@ function handleLanguageToggleScroll() {
     window.addEventListener('resize', function() {
         if (window.innerWidth >= 768) {
             languageToggle.classList.remove('hidden-scroll');
+            if (pdfButton) pdfButton.classList.remove('hidden-scroll');
         }
     });
 }
